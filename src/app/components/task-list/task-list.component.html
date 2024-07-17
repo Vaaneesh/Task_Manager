@@ -1,0 +1,46 @@
+<div class="task-list-container">
+  <div class="header-container">
+  </div>
+  <table class="task-table">
+    <thead>
+      <tr>
+        <th>S. No.</th>
+        <th (click)="sort('title')">TITLE <i class="fas fa-sort-alpha-down"></i></th>
+        <th (click)="sort('description')">DESCRIPTION <i class="fas fa-sort-alpha-down"></i></th>
+        <th (click)="sort('dueDate')">DUE DATE <i class="fas fa-sort-numeric-down"></i></th>
+        <th (click)="sort('priority')">PRIORITY <i class="fas fa-sort-amount-down"></i></th>
+        <th (click)="sort('status')">STATUS <i class="fas fa-sort-amount-down"></i></th>
+        <th>EDIT/DELETE<i class="fas fa-cogs"></i></th>
+        <th>HISTORY <i class="fas fa-history"></i></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let task of filteredTasks; let i = index">
+        <td>{{ i + 1 }}</td> 
+        <td>{{ task.title }}</td>
+        <td>{{ task.description }}</td>
+        <td>{{ task.dueDate | date }}</td>
+        <td>{{ task.priority }}</td>
+        <td>{{ task.status }}</td>
+        <td>
+          <button (click)="editTask(task)" class="action-button edit-button">
+            <i class="fas fa-edit"></i> 
+          </button>
+          <button (click)="deleteTask(task.id)" class="action-button delete-button">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </td>
+        <td>
+          <ul class="history-log-list">
+            <li *ngFor="let entry of task.history" class="history-log-item">
+              {{ entry.timestamp | date:'short' }} - {{ entry.action }}
+            </li>
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <button class="export-button" (click)="exportToCSV()">
+    <i class="fas fa-file-csv"></i> 
+  </button>
+</div>
